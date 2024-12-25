@@ -1,0 +1,135 @@
+{% extends 'main.html' %} 
+{% load static %}
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+
+        .left-section {
+            flex: 1;
+           
+            background-image: url({% static 'images/Left.png'%}); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #fff;
+        }
+        {% comment %}Join Us k liye yeh kam kiya {% endcomment %}
+        .right-section h1 {
+            font-size: 32px;
+            color: black;
+            margin-bottom: 30px;
+            margin-right:350px
+        }
+        {% comment %} yeh us k neechy jo paragraph ha {% endcomment %}
+        .right-section p {
+            font-size: 16px;
+            color: black;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .button-group {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .button {
+            {% comment %} display: block;
+            white-space:pre; {% endcomment %}
+            display: grid;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            font-size: 18px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            color: #007bff;
+            background-color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .button span {
+            margin-top:30px
+            margin-left: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .button-group a {
+            text-decoration: none;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-bar a {
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="{% url 'login' %}">Already have an account? Sign In</a>
+    </div>
+
+    <div class="container">
+        <div class="left-section"></div>
+        <div class="right-section">
+            <h1>Join Us!</h1>
+            <p>To begin this journey, tell us what type of account you'd be opening.</p>
+            <div class="button-group">
+                <a href="{% url 'register'%}?role=manager" class="button">Manager
+                    <span class="spa">Signup as a manager to manage the tasks and bugs</span>
+                </a>
+                <a href="{% url 'register' %}?role=developer" class="button">Developer
+                    <span>Signup as a Developer to assign the relevant tasks to QA</span>
+                </a>
+                <a href="{% url 'register' %}?role=qa" class="button">
+                    QA
+                    <span>Signup as QA to create the bugs and report in tasks</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock content %}

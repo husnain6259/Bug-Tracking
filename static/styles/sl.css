@@ -1,0 +1,115 @@
+/* yaha pr hum Signup Login ka css rahk rhy ha */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+}
+.container {
+    display: flex;
+    width: 1400px;
+    height: 100vh;        
+}
+
+.left-section {
+    flex: 1;
+    background-image: url("/static/images/Left.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background-color: #f9f9f9;
+
+}
+
+.form-container {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    margin-left: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    
+}
+.form-group h1{
+
+    font-size: 44px;
+    margin-bottom: 20px;
+}
+
+.form-group span
+{
+    font-size: 20px;
+    margin-bottom: 40px;
+    color: #8692A6;
+
+}
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    width: 70%;
+    margin-top: 10px;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group input:focus {
+    
+    outline: none;
+    border-color: #007bff;
+}
+
+.form-footer {
+    margin-top: 10px;
+    text-align: center;
+    color: #555;
+}
+
+.form-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+.btn {
+    width: 50%;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+}

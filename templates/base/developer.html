@@ -1,0 +1,103 @@
+{%extends 'navbar.html'%}
+{%load static %}
+{%block content%}
+
+
+
+<div class="container">
+  <div class="dashboard-header">
+    <div class="c">
+      <h1>Projects</h1>
+      <span>Hi visnext Welcome to ManageBug</span>
+    </div>
+      <div>
+        <form action="{% url 'index' %}" method="get">
+          <input type="text" name='q' placeholder="Search for Projects here">
+        </form>
+        <div class="btn">           
+          {% comment %} <a href="{% url 'bug_create' project.id %}" class="add-bug-btn">Add New Bug</a>      {% endcomment %}
+          <a href="{% url 'project_create' %}" ><button>+ Add New Project</button></a> 
+          <button>Sort By </button>
+          {% comment %} <select > <option>Sort By</option></select> {% endcomment %}
+          <button>My Project</button>
+        </div>
+          <div class="img">
+          <img src="{% static 'images/Group.png' %}" />
+        </div>
+      </div>
+  </div>
+  <div class="project-grid" >
+        <form method="POST" action="">
+          {% csrf_token %}      
+        {% for project in page_obj %}  
+        <div class="project-card" onclick="location.href='{% url 'bug_list' project.project.id %}'">
+          <img src="{% url 'project_image' project.project.id %}" alt="Project Image">  
+          <h3 class="link"><a href="">{{ project.project.title }}</a></h3>  
+          <span>{{ project.project.description }}</span>  
+          <p>Total Bugs: {{project.completed_bugs}} / {{project.total_bugs}}</p>
+        </form>
+      </div>
+        {% endfor %}  
+          
+</div>
+</div>
+
+<div class="pagination-container">  
+<div class="info">  
+  <p>Showing {{ start_index }} to {{ end_index }} of {{ total_entries }} entries</p>  
+</div>
+<ul class="page-numbers">  
+  <form method="get">  
+      <label for="page_size">Projects per page:</label>  
+      <select name="page_size" id="page_size" onchange="this.form.submit()">  
+          <option value="2" {% if page_size == '2' %}selected{% endif %}>2</option>  
+          <option value="4" {% if page_size == '4' %}selected{% endif %}>4</option>  
+          <option value="10" {% if page_size == '10' %}selected{% endif %}>10</option>  
+      </select>  
+  </form>  
+
+  <li>  
+      {% if page_obj.has_previous %}  
+      <a href="?page={{ page_obj.previous_page_number }}" class="page-btn"> &lt; </a> {# link to the prev page #}  
+      {% endif %}  
+  </li>  
+  <li>  
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>  
+  </li>  
+  <li>  
+      {% if page_obj.has_next %}  
+      <a href="?page={{ page_obj.next_page_number }}" class="page-btn"> &gt; </a> {# link to the next page #}  
+      {% endif %}  
+  </li>  
+</ul>   
+</div>
+
+{%endblock content%}
+
+{% comment %} 
+<h1> hello {{ request.user.username }} your role is developer</h1>
+<div class="projects">  
+    {% for project in page_obje %}  
+    <div class="project-card">  
+      <img src="{% url 'project_image' project.id %}" alt="Project Image">  
+      <h3 class="link"><a href="{% url 'bug_list' %}">{{ project.title }}</a></h3>  
+      <span>{{ project.description }}</span>  
+      <p>Task Progress: {{ project.task_progress }}% ({{ project.completed_tasks }}/{{ project.total_tasks }})</p>  
+    </div>  
+    {% endfor %}  
+  </div>
+
+  <div class="pagination">
+    <ul class="pagination">
+    <li class="page-item active">
+    {%if page_obje.has_previous %} {# whether the previous page exists #}
+    <a class="page-link"  href="?page={{page_obje.previous_page_number}}"><</a> {# link to the prev page #}
+    {% endif %}
+    <li/>
+  <li class="page-item">
+   <a class="page-link"> {{page_obje.number}}</a>
+  </li>
+  <li class ="page-item active" >
+  {%if page_obje.has_next %} {# whether the next page exists #}
+  <a  class="page-link"   href="?page={{page_obje.next_page_number}}">></a> {# link to the next page #}
+  {% endif %} {% endcomment %}

@@ -1,0 +1,297 @@
+/* yaha pr jo hamary bug search ho rha ha us k styling is page k uper aye g */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fc;
+    color: hsl(0, 0%, 20%);
+}
+
+.container {
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.badge {
+    background-color: #ff6b6b;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+/* {% comment %} yeh nave bar k styling yaha sy start ha {% endcomment %} */
+.navbar {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #2d88f0;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #aaa;
+}
+/* 
+{% comment %} Filter section jo search bar k liye ha  {% endcomment %} */
+
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.search-bar {
+    padding: 18px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 20%;
+}
+
+.dropdowns select {
+    margin-right: 10px;
+    padding: 6px;
+}
+
+.add-task-btn {
+    background-color: #2d88f0;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* 
+{% comment %} Table k styling yaha sy ha  {% endcomment %} */
+
+.bug-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.bug-table th,
+.bug-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.bug-table th {
+    background-color: #f8f9fc;
+    font-weight: bold;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+
+.status.pending {
+    background-color: #ff6b6b;
+}
+
+.status.in-progress {
+    background-color: #6baceb;
+}
+
+.status.closed {
+    background-color: #68c39f;
+}
+
+.fas {
+    color: #999;
+    cursor: pointer;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    margin-top:300px;
+}
+
+.pagination select {
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pagination button {
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+/* 
+{% comment %} yeh action button k use krny k liye {% endcomment %} */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #fff;
+  color: #333;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a.pending {
+  color: red;
+}
+
+.dropdown-content a.in_progress {
+  color: yellow;
+}
+
+.dropdown-content a.complete {
+  color: green;
+}
+.dropdown-content a.closed {
+  color: #ff8400;
+}
+
+.dropdown-content a.delete {
+  color: red;
+}
+
+.Pending {
+  color: red;
+}
+
+.Progress {
+  color: orange;
+}
+
+.Completed {
+  color: green;
+}
+
+.Closed {
+  color: #ff8400;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #f1f1f1;
+}
+/* 
+{% comment %} yaha sy dropdown k content shuru ho jata ha {% endcomment %} */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+/* 
+{% comment %} Dropdown Content {% endcomment %} */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* {% comment %} Links inside the dropdown  {% endcomment %} */ 
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* {% comment %} yeh change color menu pr hover  or background color change krny k liye {% endcomment %} */
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+/* .pagination span{
+  color:blue;
+  width: 20px;
+  background-color: #f1f1f1;
+} */

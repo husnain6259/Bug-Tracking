@@ -1,0 +1,70 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="images/x-icon" href="{% static '/images/favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static "styles/navbar.css" %}">
+    <link rel="stylesheet" href="{% static "styles/home.css" %}">
+    <link rel="stylesheet" href="{% static "styles/table.css" %}">
+    <link rel="stylesheet" href="{% static "styles/bug.css" %}">   
+    <link rel="stylesheet" href="{% static "styles/dashboard.css" %}">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static "styles/bootstrap.min.css" %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/> 
+    <title>Bug Tracking System</title>
+  </head>
+  <body>
+    {% comment %} Navbar {% endcomment %}
+    <header>
+      <div class="logo">
+        <img src="{% static 'images/Group.png' %}" />
+       
+        ManageBug
+      </div>
+      <nav>
+        <div class="icon">
+          <img src="{% static 'images/Category.png' %}" />
+        </div>
+        <h6>Project</h6>
+        
+        
+        <div class="icon">
+          <img src="{% static 'images/Bag.png' %}" />
+        </div>
+        <h6>Task</h6>
+        <div class="icon">
+          <img src="{% static 'images/Solid.png' %}" />
+        </div>
+        <h6>Mange</h6>
+        <div class="icon">
+          <img src="{% static 'images/user.png' %}" />
+        </div>
+        <h6>User</h6>
+      </nav>
+      <div class="icone">
+        <img src="{% static 'images/Notification.png' %}" />
+        <img src="{% static 'images/Message.png' %}" />
+       
+      </div>
+      <div class="user-menu">
+        <img src="{% static 'images/Ellipse 11.png' %}" />
+        
+        <div class="dropdown1">
+          <span>{{request.user.username}}</span>
+          <div class="dropdown-content1">
+        
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {%block content%} 
+
+    
+    {%endblock%}
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>

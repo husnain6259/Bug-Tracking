@@ -1,0 +1,18 @@
+{% extends 'navbar.html'%}
+{%load static %}
+{% block content %}
+  <div class="projects">  
+    <form method="POST" action="">
+      {% csrf_token %}      
+    {% for project in projects %}  
+    <div class="project-card">  
+      <img src="{% url 'project_image' project.id %}" alt="Project Image">  
+      <h3 class="link"><a href="{% url 'bug_list' project.id  %}">{{ project.title }}</a></h3>  
+      <span>{{ project.description }}</span>  
+      <p>Task Progress: {{ project.task_progress }}% ({{ project.completed_tasks }}/{{ project.total_tasks }})</p>  
+    </form>
+    </div>  
+    {% endfor %}  
+  </div>
+  
+{% endblock %}

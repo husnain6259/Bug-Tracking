@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{%load static %}
+
+{% block content %}
+    {% comment %} yeh images k liye ha  {% endcomment %}
+    <div class="container">
+    <div class="left-section"></div>
+    <div class="right-section">
+    <div class="form-group">
+        <form method="post">
+            {% csrf_token %}
+            <h1>Signup</h1>
+            <span>please fill your information below </span>
+            <input type="hidden" name="role" value='{{role}}'>
+            {{form.as_p}}
+            
+            <button type="submit" class="btn" >Sign Up </button>
+            <div class="form-footer">
+                Already have an account? <a href="{% url 'login'%}">Login to your account</a>
+            </div>
+        </form>
+           
+        {% if msg %}
+        <div class="alert alert-success" role="alert">
+            {{ msg }}
+        </div>
+    {% endif %}
+
+</div>
+</div>  
+
+{% endblock content %}
+
+

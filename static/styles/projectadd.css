@@ -1,0 +1,111 @@
+
+.modal {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 700px;
+    padding: 20px;
+    height:60vh;
+    margin-left:300px;
+    margin-top:100px;
+  }
+  
+  .modal-content h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 50%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .upload-container {
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    margin-left:400px;
+    margin-top:-280px;
+    width: 45%;
+  }
+  
+  .upload-box {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin-left:80px;
+    padding:10px;
+    color: #888;
+   
+    
+  }
+
+  .button-group {
+    display: flex;
+    margin-top:60px;
+    justify-content: space-between;
+    width: 30%;
+  }
+  
+  .add-button,
+  .cancel-button {
+    width: 38%;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .form-group #id_description {
+    resize: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+  }
+  .upload-box input[type="file"] {
+    /* border: 2px solid #6c5ce7; */
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  /* background-color: #a29bfe; */
+  transition: 1s;
+  padding:10px;
+  width: 170%;
+  margin-left: -40%;
+}
+  .add-button {
+    background-color: #007bff;
+    color: white;
+    width: 30%;
+  }
+  
+  .cancel-button {
+    background-color: #f8f9fa;
+    color: #000;
+    border: 1px solid #ccc;
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancel-button:hover {
+    background-color: #e2e6ea;
+  }

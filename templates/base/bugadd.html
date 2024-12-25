@@ -1,0 +1,504 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Bug</title>
+    <style>
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .modal {
+        background: #fff;
+        border-radius: 8px;
+        width: 500px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+      }
+      
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+      }
+      
+      .modal-title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      
+      .modal-body {
+        padding: 20px 0;
+      }
+      
+      .assign-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      
+      .assign-item label {
+        font-size: 14px;
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+      }
+      
+      .avatars {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .avatars img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+      }
+      
+      .add-avatar {
+        width: 30px;
+        height: 30px;
+        border: 2px dashed #ddd;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        color: #555;
+        cursor: pointer;
+      }
+      
+      .due-date-btn {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      
+      .due-date-btn img {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .form-group {
+        margin-bottom: 20px;
+      }
+      
+      .title-input {
+        width: 90%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-bottom: 2px solid #ddd;
+        outline: none;
+      }
+      
+      textarea {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        resize: none;
+        height: 80px;
+        font-size: 14px;
+      }
+      
+      .upload-area {
+        text-align: center;
+        margin-top: 20px;
+      }
+      
+      .upload-box {
+        border: 2px dashed #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        cursor: pointer;
+      }
+      
+      .upload-box img {
+        width: 20px;
+        height: 80px;
+        margin-bottom: 10px;
+      }
+      
+      .upload-box p {
+        font-size: 14px;
+        color: #777;
+      }
+      
+      .upload-box a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      
+      .upload-box a:hover {
+        text-decoration: underline;
+      }
+      
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+      }
+      
+      .add-btn {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .add-btn:hover {
+        background: #0056b3;
+      }
+      
+    </style>
+</head>
+<body>
+  {% comment %} <form method="post" enctype="multipart/form-data">
+   {% csrf_token %}
+  <div class="overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Add new bug</h2>
+        <a href="{% url 'index' %}"> <button class="close-btn">&times;</button></a>
+      </div>
+      <div class="modal-body">
+        <div class="assign-row">
+          <div class="assign-item">
+            <label>Assign to</label>
+            <div class="avatars">
+              {{form.assigned_to}}
+              {% comment %} <img src="avatar1.png" alt="Avatar 1">
+              <img src="avatar2.png" alt="Avatar 2">
+              <div class="add-avatar">+</div> {% endcomment %}
+            {% comment %} </div>
+          </div>
+          <div class="assign-item">
+            <label>Add due date</label>
+            <button class="due-date-btn">
+              {{form.due_date}}
+              {% comment %} <img src="calendar-icon.png" alt="Calendar Icon"> {% endcomment %}
+            {% comment %} </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Add title here" class="title-input">  {{form.title}}
+       
+        </div>
+        <div class="form-group">
+          <label for="bug-details">Bug details</label>
+          {{form.description}}
+      
+        </div>
+        <div class="form-group">
+          <label for="bug-details">Bug details</label>
+          {{form.type}}
+      
+        </div>
+        <div class="form-group">
+          <label for="bug-details">Bug details</label>
+          {{form.status}}
+      
+        </div>
+        <div class="upload-area">
+          <label for="file-upload">
+            <div class="upload-box">
+              <img src="" alt="">
+              <p>Drop any file here or <a href="#">browse</a></p>
+              {{form.image}}
+            </div>
+          </label>
+          <input type="file" id="file-upload" hidden>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="add-btn">Add</button>
+      </div>
+    </div>
+  </form>
+  </div> {% endcomment %}
+    {% comment %} <div class="overlay">
+        <div class="modal">
+          <h2 class="modal-title">Add New Bug </h2>
+          <form class="modal-form" method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="project-name">Project name</label>
+              {{form.title}}
+              
+            </div>
+            <div class="form-group">
+              <label for="project-details">Short details</label>
+              {{form.description}}
+            </div>
+            <div class="form-group">
+                <label for="project-details">Bug Type</label>
+                {{form.type}}
+              </div>
+              <div class="form-group">
+                <label for="project-details">Bug Status </label>
+                {{form.status}}
+              </div>
+              <div class="form-group">
+                <label for="project-details">Assigned To</label>
+                {{form.assigned_to}}
+              </div>
+              <div class="form-group">
+                <label for="project-details">Due Date </label>
+                {{form.due_date}}
+              </div>
+            <div class="upload-photo">
+              <label for="project-photo">
+                <div class="upload-box">
+                  <img src="upload-icon.png" alt="Upload Icon">
+                  {{form.image}}
+                </div>
+              </label>
+              <input type="file" id="project-photo" accept="image/*" hidden>
+            </div>
+            <div class="modal-actions">
+                <a href="{% url 'index' %}"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+          </form>
+        </div>
+      </div> {% endcomment %}
+    {% comment %} <div class="modal">
+        <div class="modal-header">Add New Bug</div>
+        <div class="modal-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form__group">
+                    {{form.as_p}}
+                </div>
+                <a href="{% url 'index' %}"><button class="btn btn-secondary" type="button">Cancel</button></a>
+                <button class="btn btn-primary" type="submit">Add</button>
+            </form>
+        {% comment %} </div> {% endcomment %}
+    {% comment %} </div>
+</body>
+</html> {% endcomment %} 
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Bug</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      width: 500px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .modal-body {
+      margin-top: 20px;
+    }
+    .assign-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    .assign-item {
+      flex: 1;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 90%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      resize:none;
+    }
+    .date-icon {
+      position: relative;
+    }
+    .date-icon input {
+      padding-right: 40px;
+    }
+    .date-icon i {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      color: #888;
+      pointer-events: none;
+    }
+    .upload-area {
+      margin-top: 15px;
+      border: 2px dashed #ddd;
+      padding: 15px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #666;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+    .upload-area:hover {
+      border-color: #007bff;
+    }
+    .upload-area a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .modal-footer {
+      margin-top: 20px;
+    }
+    .add-btn {
+      width: 30%;
+      padding: 10px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left:320px;
+    }
+    .add-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Add new bug</h2>
+          <a href="{% url 'index' %}">
+            <button type="button" class="close-btn">&times;</button>
+          </a>
+        </div>
+        <div class="modal-body">
+          <div class="assign-row">
+            <div class="assign-item">
+              <label for="assign-to">Assign to</label>
+              {{ form.assigned_to }}
+            </div>
+            <div class="assign-item">
+              <label for="due-date">Add due date</label>
+              <div class="date-icon">
+                {{ form.due_date }}
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="title">Add title here</label>
+            {{ form.title }}
+          </div>
+          <div class="form-group">
+            <label for="description">Bug details</label>
+            {{ form.description }}
+          </div>
+          <div class="form-group">
+            <label for="type">Bug Type</label>
+            {{ form.type }}
+          </div>
+          <div class="form-group">
+            <label for="status">Bug Status</label>
+            {{ form.status }}
+          </div>
+          <div class="upload-area">
+            <label for="file-upload">
+              Drop any file here or <a href="#">browse</a>
+              {{ form.image }}
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="add-btn">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

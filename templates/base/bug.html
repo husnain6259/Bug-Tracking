@@ -1,0 +1,167 @@
+{% extends 'navbar.html'%} 
+{%load static %} 
+{%block content%}
+
+<style>
+  
+</style>
+
+
+{% for msg in messages  %}
+<div class="alert alert-success" role="alert">
+  {{msg}}
+</div>
+{% endfor %}
+
+
+<div class="content">
+  <div class="breadcrumbs">
+    {% for project in projects %}
+    <h1>{{project.title}}</h1>
+    {%endfor%}
+  </div>
+
+  <div class="page-header">
+    <div>
+     
+      <h6>Project > {{project.title}}</h6>
+      <h1>All bugs listing</h1>
+      <span class="status-badge">Bugs</span>
+    </div>
+    <div class="i">
+    <img src="{% static 'images/icon.png' %}" />
+    <img src="{% static 'images/dot.png' %}" />
+  </div>
+  {% if user_role == 'is_qa' %}
+    <a href="{% url 'bug_create' project.id %}" class="add-bug-btn">Add New Bug</a> 
+    {% endif %}
+  </div>
+
+  <div class="filters">
+    <form action="{% url 'bug_list' project.id  %}" method="get">
+      <input type="search" name="q" placeholder="Search" />
+    </form>
+    <div class="dropdowns">
+      <select>
+        <option>Subtasks</option>
+      </select>
+      <select>
+        <option>Me</option>
+      </select>
+      <select>
+        <option>Assignees</option>
+      </select>
+    </div>
+    <div class="pic">
+     
+    </div>
+    <div class="view-controls">
+      <img src="{% static 'images/b1.png' %}" />
+      <img src="{% static 'images/b2.png' %}" />
+      <img src="{% static 'images/View.png' %}" />
+    </div>
+    
+
+  </div> <table class = "bug-table">
+    <thead>
+      <tr>
+        <th><input type="checkbox"></th>
+        <th scope="col">Description</th>
+        <th scope="col">Type</th>
+        <th scope="col">Status</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Assigned To</th>
+        <th scope="col">Action </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-active">
+        {% for bug in page_obj %}
+        {% comment %} <th scope="row">{{ bug.title }}</th> {% endcomment %}
+        <td><input type="checkbox"></td>
+        <td>{{ bug.description }}</td>
+        <td>{{ bug.type }}</td>
+        <td>
+          <span class="{{bug.status}}">{{ bug.status }}</span>
+        </td>
+        <td>
+          <form method="post" action="{% url 'update_due_date' bug_id=bug.id %}">
+            {% csrf_token %}
+            <div class="date-input-container">
+              <i class="fa fa-calendar" id="due-date-icon"></i>
+              <input type="date" name="due_date" value="{{ bug.due_date }}" id="due-date-input" >
+            
+            </div>
+            <div class="date">
+            <button class="dat" type="submit">Update</button>
+          </div>
+          </form>
+          {% comment %} <form method="post" action="{% url 'update_due_date' bug_id=bug.id %}">
+            {% csrf_token %}
+            <input type="date" name="due_date" value="{{ bug.due_date }}">
+            <button type="submit">Update Due Date</button>
+        </form>
+         {% endcomment %}
+        {% comment %} <a href="{% url 'update_due_date' bug_id=bug.id due_date='new_due_date' %}">  <i class="fa fa-calendar" id="due-date-icon"></i></a> {% endcomment %}
+        {% comment %} <a href="{% url 'update_due_date' bug_id=bug.id due_date='2022-12-31' %}">  <i class="fa fa-calendar" id="due-date-icon"></i></a> 
+        
+        <input type="date" id="due-date-input" value="{{ bug.due_date }}" style="display: none;"> {% endcomment %}
+        </td>
+        {% comment %} <td>{{ bug.due_date }}</td> {% endcomment %}
+        <td>{{ bug.assigned_to }}</td>
+        <td>
+
+          <div class="dropdown">
+            <button class="dropbtn">&#8230;</button>
+
+            <div class="dropdown-content">
+              
+              <a href="{% url 'update_status' bug.id 'Pending' %}" class="pending">Pending</a>
+              <a href="{% url 'update_status' bug.id 'In Progress' %}" class="in_progress">In Progress</a>
+              <a href="{% url 'update_status' bug.id 'Completed' %}" class="complete">Complete</a>
+              <a href="{% url 'update_status' bug.id 'Closed' %}" class="closed">Closed</a>
+              <a href="{% url 'delete_bug' bug.id  %}" class="delete">Delete</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+    </tbody>
+
+{% endfor %}
+
+  </table>
+  
+</div>
+<div class="pagination-container">  
+  <div class="info">  
+      <p>Showing {{ start_index }} to {{ end_index }} of {{ total_entries }} entries</p>  
+    </div>
+    <ul class="page-numbers">  
+      <form method="get">  
+          <label for="page_size">Projects per page:</label>  
+          <select name="page_size" id="page_size" onchange="this.form.submit()">  
+              <option value="2" {% if page_size == '2' %}selected{% endif %}>2</option>  
+              <option value="4" {% if page_size == '4' %}selected{% endif %}>4</option>  
+              <option value="10" {% if page_size == '10' %}selected{% endif %}>10</option>  
+          </select>  
+      </form>  
+
+      <li>  
+          {% if page_obj.has_previous %}  
+          <a href="?page={{ page_obj.previous_page_number }}" class="page-btn"> &lt; </a> {# link to the prev page #}  
+          {% endif %}  
+      </li>  
+      <li>  
+          <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>  
+      </li>  
+      <li>  
+          {% if page_obj.has_next %}  
+          <a href="?page={{ page_obj.next_page_number }}" class="page-btn"> &gt; </a> {# link to the next page #}  
+          {% endif %}  
+      </li>  
+  </ul>  
+</div>
+
+{%endblock content%}

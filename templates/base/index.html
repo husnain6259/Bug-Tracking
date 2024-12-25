@@ -1,0 +1,121 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content%}
+   
+    {% for msg in messages  %}
+    <div class="alert alert-success" role="alert">
+      {{msg}}
+    </div>
+    {% endfor %}
+<style>
+ 
+
+
+
+{% comment %} yeh last page pr jo pagination ha us k styling ha  {% endcomment %}
+  
+</style>
+
+{% comment %} 
+  <h1>Welcome to ManageBug</h1>
+  <span>Hi {{ request.user.username }}, welcome to your dashboard!</span> {% endcomment %}
+
+  <!-- Role-based actions -->
+  {% comment %} {% if request.user.type == 'is Manager' %}
+  You are admin
+  {% elif request.user.type == 'is QA' %}
+  You are the owner, you can create new employees and edit orders.
+  {% elif request.user.type == 'Is Developer' %}
+  You are a customer, you can see your orders.
+  {% endif %} {% endcomment %}
+  {% comment %} <div class="actions">
+      {% if user_role == 'is_manager' %}
+          <a href="{% url 'project-create' %}"><button>Add Project</button></a>
+      {% elif user_role == 'is_qa' %}
+          <a href="{% url 'bug_create' %}"><button>Add Bug</button></a>
+      {% elif user_role == 'is_developer' %}
+          <p>You can view your assigned projects and bugs here.</p>
+      {% endif %}
+  </div> {% endcomment %}
+
+  
+    <div class="container">
+        <div class="dashboard-header">
+          <div class="c">
+            <h1>Projects</h1>
+            <span>Hi visnext Welcome to ManageBug</span>
+          </div>
+            <div>
+              <form action="{% url 'index' %}" method="get">
+                <input type="text" name='q' placeholder="Search for Projects here">
+              </form>
+              <div class="btn">          
+                  {% if user_role == 'is_manager' %}
+                      <a href="{% url 'project-create' %}"><button>+ Add New Project</button></a>
+                  {% elif user_role == 'is_qa' %}
+                  <p>Your Role as a QA </p>
+                      {% comment %} <a href="{% url 'bug_create' project_id=project.id %}"><button>Add Bug</button></a> {% endcomment %}
+                  {% elif user_role == 'is_developer' %}
+                      
+                  {% endif %}
+             
+               
+              <div class="dropdown2">
+                <select > <option>Sort By</option></select> 
+                <select > <option>Project By</option></select> 
+                
+              </div>
+            </div>
+                <div class="img">
+                <img src="{% static 'images/Group.png' %}" />
+              </div>
+            </div>
+        </div> 
+        <div class="project-grid" >
+              <form method="POST" action="">
+                {% csrf_token %}      
+              {% for project in page_obj %}  
+              <div class="project-card" onclick="location.href='{% url 'bug_list' project.project.id %}'">
+                <img class="banner" src="{{ project.project.image.url }}" 
+                alt=""/>  
+                <h3 class="link"><a href="">{{ project.project.title }}</a></h3>  
+                <span>{{ project.project.description }}</span>  
+                <p>Task Done: {{project.completed_bugs}} / {{project.total_bugs}}</p>
+              </form>
+            </div>
+              {% endfor %}  
+                
+    </div>
+    </div> 
+
+  <div class="pagination-container">  
+    <div class="info">  
+        <p>Showing {{ start_index }} to {{ end_index }} of {{ total_entries }} entries</p>  
+      </div>
+      <ul class="page-numbers">  
+        <form method="get">  
+            <label for="page_size">Projects per page:</label>  
+            <select name="page_size" id="page_size" onchange="this.form.submit()">  
+                <option value="2" {% if page_size == '2' %}selected{% endif %}>2</option>  
+                <option value="4" {% if page_size == '4' %}selected{% endif %}>4</option>  
+                <option value="10" {% if page_size == '10' %}selected{% endif %}>10</option>  
+            </select>  
+        </form>  
+ 
+        <li>  
+            {% if page_obj.has_previous %}  
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-btn"> &lt; </a> {# link to the prev page #}  
+            {% endif %}  
+        </li>  
+        <li>  
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>  
+        </li>  
+        <li>  
+            {% if page_obj.has_next %}  
+            <a href="?page={{ page_obj.next_page_number }}" class="page-btn"> &gt; </a> {# link to the next page #}  
+            {% endif %}  
+        </li>  
+    </ul>   
+  </div>
+
+  {% endblock content %}

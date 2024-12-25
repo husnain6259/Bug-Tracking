@@ -1,0 +1,45 @@
+{% extends 'main.html'%}
+{%load static%}
+{% block content %}
+  <div class="modal">
+    <div class="modal-content">
+      <h2>Add New Project</h2>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input">
+          <label for="project-name" >Project Name</label>
+        <input type="text" name="title" placeholder=" Enter project name " value="{{form.title.value}}">
+        </div>
+        <div class="input">
+          <label for="short-details">Short Details</label>
+          <textarea name="description" id="" placeholder=" Enter Detail Here" value="{{form.description.value}}"></textarea>
+        </div>
+
+        <div class="drop-section">
+          <div class="col">
+              <div class="cloud-icon">
+                <img src="{% static 'images/gallery-add.png' %}" />
+              </div>
+              <span>Upload Project Photo</span>
+              <span>OR</span>
+              {% comment %} <button class="file-selector">Browse Files</button> {% endcomment %}
+              <input type="file" name="image" class="file-selector-input" multiple>
+           
+          </div>
+          <div class="col">
+              <div class="drop-here">Drop Here</div>
+          </div>
+      </div>
+      <div class="list-section">
+          <div class="list-title">Uploaded Files</div>
+          <div class="list"></div>
+      </div>
+      <div class="button-group">
+        <button type="submit" class="add-button">Add</button>
+         <a href="{% url 'index' %}"><button class="cancel-button" type="button">Cancel</button></a>
+      </div>
+    </form> 
+    </div>
+  </div>
+
+{%endblock content%}

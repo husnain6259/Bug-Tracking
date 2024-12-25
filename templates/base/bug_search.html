@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug List</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles/search.css'%}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h2>Manage<span>Bug</span></h2>
+        </div>
+        <ul class="nav-links">
+          <i class="fa-solid fa-briefcase"></i>
+          <a href="#">Projects</a>
+          <i class="fa-solid fa-list-check"></i>
+          <a href="#">Tasks</a>
+          <i class="fa-solid fa-circle"></i>
+          <a href="#">Manage</a>
+          <i class="fa-solid fa-user"></i>
+          <a href="#">Users</a>
+        </ul>
+        <a href="{% url 'index' %}"><button>Back To Home</button></a>
+        <div class="dropdown">
+          <img src="{% static 'images/Ellipse 11.png' %}" />
+  
+          {% if request.user.is_authenticated %}
+          <p>{{request.user.username}}</p>
+         {% else %}
+          <span>Guest</span>
+          {% endif %}
+  
+          <div class="dropdown-content">
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <div class="container">
+        <div class="header">
+            <h1>All bugs listing <span class="badge">Bugs</span></h1>
+        </div>
+
+        <div class="filter-section">
+          <form action="{% url 'search_bug'  %}" method="get">
+            <input type="text" name="q" placeholder="Search...">
+              </form>
+         
+
+            <div class="dropdowns">
+                <select name="subtasks">
+                    <option>Subtasks</option>
+                </select>
+                <select name="assignees">
+                    <option>Me</option>
+                </select>
+                <select name="assignees">
+                    <option>Assignees</option>
+                </select>
+            </div>
+              <a href="{% url 'bug_create' %}"><button class="add-task-btn"> Add New Bug/Feature </button></a> 
+          {% comment %} <a href="{% url 'bug_create' project.id %}"><button class="add-task-btn">+ Add New Bug/Feature </button></a>  {% endcomment %}
+        </div>
+{% comment %} yeh jo search found ho g to us k message show kry ga  {% endcomment %}
+        {% for msg in messages  %}
+        <div class="alert alert-success" role="alert">
+          {{msg}}
+        </div>
+        {% endfor %}
+         {% comment %} Table {% endcomment %}
+         <table class = "bug-table">
+        <thead>
+          <tr>
+            {% comment %} <th scope="col">Title</th> {% endcomment %}
+            <th scope="col">Description</th>
+            <th scope="col">Type</th>
+            <th scope="col">Status</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Assigned To</th>
+            <th scope="col">Action </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-active">
+            {% for bug in bugs %}
+            {% comment %} <th scope="row">{{ bug.title }}</th> {% endcomment %}
+            <td>{{ bug.description }}</td>
+            <td>{{ bug.type }}</td>
+            <td>
+              <span class="{{bug.status}}">{{ bug.status }}</span>
+            </td>
+            <td>{{ bug.due_date }}</td>
+            <td>{{ bug.assigned_to }}</td>
+            <td>
+              <div class="dropdown">
+                <button class="dropbtn">&#8230;</button>
+                <div class="dropdown-content">
+                  <a href="{% url 'update_status' bug.id 'Pending' %}" class="pending">Pending</a>
+                  <a href="{% url 'update_status' bug.id 'In Progress' %}" class="in_progress">In Progress</a>
+                  <a href="{% url 'update_status' bug.id 'Completed' %}" class="complete">Complete</a>
+                  <a href="{% url 'update_status' bug.id 'Closed' %}" class="closed">Closed</a>
+                  <a href="{% url 'delete_bug' bug.id  %}" class="delete">Delete</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+        </tbody>
+
+{% endfor %}
+
+      </table>
+
+</body>
+</html>
+<table class="table table-hover">
+   
+
+
